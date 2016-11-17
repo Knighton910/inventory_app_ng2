@@ -1,101 +1,44 @@
+//@ProductsList: A component for rendering all ProductRows
+// and storing the currently selected product
+
 @Component({
-  selector:
+  selector: 'products-list',
+  inputs: ['productList'],
+  outputs: ['onProductSelected'],
   template: `
-    <div class='ui items'>
+    <div class="ui items">
         <product-row 
             *ngFor="let myProduct of productList"
-            [product] = 'myProduct'
-            (click)="clicked(myProduct)"
-            [class.select]='isSelected(myProduct)'>
+            [product]="myProduct"
+            (click)='clicked(myProduct)'
+            [class.selected]="isSelected(myProduct)">
         </product-row>
     </div>
   `
 })
 
-class ProductList {
+class ProductsList {
   productList: Product[]
 
   onProductSelected: EventEmitter<Product>
 
-  currentProduct: ProductList
+  currentProduct: Product
 
   constructor() {
     this.onProductSelected = new EventEmitter()
   }
+
+  clicked(product: Product): void {
+    this.currentProduct = product
+    this.onProductSelected.emit(product)
+  }
+
+  isSelected(product: Product): boolean {
+    if (!product || !this.currentProduct) {
+      return false
+    }
+    return product.sku === this.currentProduct.sku
+  }
+
 }
 
-
-
-
-
-// @Component({
-//   selector: 'counter',
-//   template: `
-//   {{value}}
-//   <button (click)='increase()'>Increase</button>
-//   <button (click=)='decrease()'>Decrease</button>
-//   `
-// })
-//
-// class Counter {
-//   value: number
-//
-//   constructor() {
-//     this.value = 1
-//   }
-//
-//   increase() {
-//     this.value = this.value +1
-//     return false
-//   }
-//   decrease() {
-//     this.value = this.value -1
-//     return false
-//   }
-//
-// }
-//
-
-
-//
-// @Component({
-//   selector: 'inventory-app',
-//   template:  `
-//     <div class=' inventory-app'>
-//       <h1>{{product.name}}</h1>
-//       <span>{{product.sku}}</span>
-//       </div>
-//     `
-// })
-//
-// class InventoryApp {
-//   products: Product[]
-//
-//   constructor() {
-//     this.products = [
-//
-//       new Product(
-//         'MYSHOES',
-//         'Black Running Shoes',
-//         '/resources/images/products/black-shoes.jpg',
-//         ['Men', 'Shoes', 'Running Shoes'],  109.99),
-//
-//         new Product(
-//           'NEATOJACKET',
-//           'Blue Jacket',
-//           '/resources/images/products/blue-jacket.jpg',
-//           ['Women', 'Apparel', 'Jackets & Vests'],  238.99),
-//
-//           new Product(
-//             'NICEHAT',
-//             'Nice Black Hat',
-//             '/resources/images/products/black-hat.jpg',
-//             ['Men', 'Accessories', 'Hats'],  29.99),
-//
-//     ]
-//   }
-// }
-//
-// productWasSelected(product: Product): void {
-//   console.log('Product clicked: ', product)
-// }
