@@ -1,4 +1,27 @@
 /*
+*@ProductDepartment: A component to show the breadcrumbs to
+*Product department
+*/
+
+@Component({
+    selector: 'product-department',
+    inputs: ['product'],
+    template: `
+        <div class="product-department">
+            <span *ngFor="let name of product.department; let i =index">
+                <a href="#">{{name}}</a>
+            </span>
+            
+        </div>
+    `
+})
+
+class ProductDepartment {
+    product: Product
+}
+
+
+/*
 * @PriceDisplay: A component to show the price of a product
 */
 
