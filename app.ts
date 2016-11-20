@@ -1,4 +1,30 @@
 /*
+* NgModule:  Bootstrap app
+*/
+
+@NgModule({
+    declarations: [
+        InventoryApp,
+        ProductImage,
+        ProductDepartment,
+        ProductRow,
+        ProductsList,
+        ProductDisplay
+    ],
+    imports: [ BrowserModule],
+    bootstrap: [InventoryApp]
+})
+
+class InventoryAppModule {}
+
+
+// So to bootstrap this app we do this
+platformBrowserDynamic().bootstrapModule(InventoryAppModule)
+
+
+
+
+/*
 *@ProductDepartment: A component to show the breadcrumbs to
 *Product department
 */
@@ -10,6 +36,7 @@
         <div class="product-department">
             <span *ngFor="let name of product.department; let i =index">
                 <a href="#">{{name}}</a>
+                <span> {{i < (product.department.length-1) ? '>' : ''}}</span>
             </span>
             
         </div>
