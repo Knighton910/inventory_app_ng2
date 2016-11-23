@@ -1,4 +1,4 @@
-# inventory_app_ng2
+# inventory_app_ng2 :fire: 
 
 The ProductRow Component 
 
